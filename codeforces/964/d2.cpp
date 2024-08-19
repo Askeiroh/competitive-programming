@@ -13,20 +13,20 @@ void solve() {
     int joker = 0;
     int missing = 0;
     vector<int> jkPointers;
-    vector<char> missingChars;
+    vector<char> msChars;
 
-    for(int i = 0; i < m.size(); i++) {
-        if(m[i] == '?') {
-            joker++;
-            jkPointers.push_back(i);
-            continue;
-        }
-
+    for(int i = 0; i < s.size(); i++) {
         bool found = false;
 
-        for(int j : s) { //will this fuck me?
-            if(m[i] == s[j]) {
-                m.erase(m.begin() + i);
+        for(int j = 0; j < m.size(); j++) { //will this fuck me?
+            if(m[j] == '?') {
+                joker++;
+                jkPointers.push_back(i);
+                continue;
+            }
+
+            if(s[i] == m[j]) {
+                m.erase(m.begin() + j);
                 found = true;
                 continue;
             }
@@ -35,18 +35,19 @@ void solve() {
         if(!found) {
             missing++;
 
-            s[i] 
+            msChars.push_back(s[i]);
         }
     }
 
     if(missing > joker) {
         cout << "NO" << endl;
     } else {
-        for(int i; i < joker; i++) {
-            answer[jkPointers[i]] = missingChars[i];
+        for(int i; i < missing; i++) {
+            answer[jkPointers[i]] = msChars[i];
         }
 
-        cout << "YES" << endl << answer << endl;
+        cout << "YES" << endl;
+        cout << answer << endl;
     }
 }
 
