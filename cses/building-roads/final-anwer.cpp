@@ -6,11 +6,10 @@ using namespace std;
 #define int long long
 
 const int MAX = 1e5 + 5;
-int n, m;                                                                 vvvvvv
+int n, m;
 vector<int> adj[MAX];
 vector<bool> vis(MAX);
-bool OK = true;
-
+vector<int> ept; //entrypoints
 
 void dfs(int u) {
     vis[u] = true;
@@ -22,6 +21,7 @@ void dfs(int u) {
 }}
 
 void solve() {
+    vector<pair<int, int>> newRoads;
     cin >> n >> m;
 
     for(int i = 0; i < m; i++) {
@@ -34,11 +34,28 @@ void solve() {
 
     for (int i = 0; i < n; i++) { 
         if (!vis[i]) {
+            ept.push_back(i);
+
+            if (ept.size() > 1) {
+                int numEntries = ept.size();
+                pair c(ept[numEntries - 2], ept[numEntries - 1]);
+
+                newRoads.push_back(c);
+            }
             dfs(i);
         }
     }
+
+    cout << newRoads.size() << endl;
+
+    for (int i = 0; i < newRoads.size(); i++) {
+        int city1 = newRoads[i].first + 1;
+        int city2 = newRoads[i].second + 1;
+
+        cout << city1 << " " << city2 << endl;
+    }
 }
-1
+
 signed main() {
     ios_base::sync_with_stdio(0);cin.tie(0);
     int TC = false;
