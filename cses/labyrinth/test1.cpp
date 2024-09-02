@@ -17,15 +17,16 @@ void solve()
         for (int j = 0; j < m; i++)
         {
             cin >> map[i][j];
+            cout << map[i][j];
         }
     }
 
-    // for (int i = 0; i < n; i++) {
-    //     for (int j = 0; j < m; i++){
-    //         cout << map[i][j];
-    //     }
-    //     cout << endl;
-    // }
+     //for (int i = 0; i < n; i++) {
+     //    for (int j = 0; j < m; i++){
+     //        cout << map[i][j];
+     //    }
+     //    cout << endl;
+     //}
 
     pair<int, int> startMaze(-1, -1);
     pair<int, int> endMaze(-1, -1);
@@ -36,6 +37,7 @@ void solve()
         {
             if (startMaze.second < 0 || endMaze.second < 0)
             {
+                cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
                 char currChar = map[i][j];
 
                 if (currChar == 'A')
@@ -55,7 +57,7 @@ void solve()
     queue<pair<int, int>> q;
     vector<vector<bool>> evaluated;
     vector<vector<int>> distances;
-    int distToEnd;
+    int distToEnd = -1;
 
     q.push(startMaze);
     evaluated[startMaze.first][startMaze.second] = true;
@@ -70,53 +72,57 @@ void solve()
             int uColumn = -1;
             int uLine = -1;
 
-            if (i == 0 && v.second <= m)
+            if (!distToEnd > 0)
             {
-                uColumn = v.first;
-                uLine = v.second + 1;
-            }
-
-            if (i == 1 && v.first <= n)
-            {
-                uColumn = v.first + 1;
-                uLine = v.second;
-            }
-
-            if (i == 2 && v.first >= 0)
-            {
-                uColumn = v.first - 1;
-                uLine = v.second;
-            }
-
-            if (i == 0 && v.second >= 0)
-            {
-                uColumn = v.first;
-                uLine = v.second - 1;
-            }
-
-            if ((uColumn != -1 && uLine != -1) && !evaluated[uColumn][uLine])
-            {
-                if (map[uColumn][uLine] == 'B')
+                if (i == 0 && v.second <= m)
                 {
-                    evaluated[uColumn][uLine] == true;
+                    uColumn = v.first;
+                    uLine = v.second + 1;
                 }
 
-                if (map[uColumn][uLine] == '#')
+                if (i == 1 && v.first <= n)
                 {
-                    evaluated[uColumn][uLine] == true;
+                    uColumn = v.first + 1;
+                    uLine = v.second;
                 }
 
-                if (map[uColumn][uLine] == '.')
+                if (i == 2 && v.first >= 0)
                 {
-                    evaluated[uColumn][uLine] == true;
-                    q.emplace(uColumn, uLine);
-                    distances[uColumn][uLine] = distances[v.first][v.second];
+                    uColumn = v.first - 1;
+                    uLine = v.second;
+                }
+
+                if (i == 0 && v.second >= 0)
+                {
+                    uColumn = v.first;
+                    uLine = v.second - 1;
+                }
+
+                if ((uColumn != -1 && uLine != -1) && !evaluated[uColumn][uLine])
+                {
+                    if (map[uColumn][uLine] == 'B')
+                    {
+                        evaluated[uColumn][uLine] == true;
+                        distToEnd = distances[v.first][v.second] + 1;
+                    }
+
+                    if (map[uColumn][uLine] == '#')
+                    {
+                        evaluated[uColumn][uLine] == true;
+                    }
+
+                    if (map[uColumn][uLine] == '.')
+                    {
+                        evaluated[uColumn][uLine] == true;
+                        q.emplace(uColumn, uLine);
+                        distances[uColumn][uLine] = distances[v.first][v.second] + 1;
+                    }
                 }
             }
         }
     }
 
-    cout << "" << endl;
+    //cout << distToEnd << endl;
 }
 
 signed main()
