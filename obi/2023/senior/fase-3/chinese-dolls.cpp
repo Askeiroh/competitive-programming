@@ -22,10 +22,8 @@ int main() {
     int total = 0;
 
     for(int i = 0; i < k; i++) {
-        total += d2[i];
+        total += pow(d2[i], 2);
     }
 
-    total = pow(total, 2);
-
-    cout << total << endl;
+    cout << total << endl;d
 }
