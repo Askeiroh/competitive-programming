@@ -29,6 +29,7 @@ void solve() {
     //cout << "rest: " << rest << endl;
     //cout << "num: " << num << endl;
     //cout << "dig: " << dig << endl;
+    //testing
     cout << res << endl;
 }
 
